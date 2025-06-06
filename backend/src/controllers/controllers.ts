@@ -14,7 +14,7 @@ export const createProduct = (req: Request, res: Response, next: NextFunction) =
   Product.create({
     title, image, description, category, price,
   })
-    .then((product: IProduct) => res.status(200).send({ data: product })).catch((err) => {
+    .then((product: IProduct) => res.status(201).send({ data: product })).catch((err) => {
       errorRouter(err, next);
     });
 };
