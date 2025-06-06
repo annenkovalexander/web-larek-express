@@ -26,13 +26,10 @@ const validtateOrderBody = (req: Request, _res: Response, next: NextFunction) =>
       .then((product) => product[0]);
   }))
     .then((products) => {
-
       if (checkProducts(products) || !isValidPaymentType(payment)) {
-        console.log("products: ", products);
         next(new BadRequestError('Ошибка валидации данных при заказе'));
       } else if (!checkProducts(products)) {
         const orderSum = products.reduce((pv, cv) => (cv.price + pv), 0);
-        console.log("products orderSum: ", orderSum);
         if (orderSum !== total) next(new BadRequestError('Ошибка валидации данных при заказе'));
       }
       next();
