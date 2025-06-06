@@ -6,6 +6,8 @@ import mongoose from 'mongoose';
 import errorMiddleware  from './middlewares/errors-middleware';
 import { notFoundHandler } from './errors/error-router';
 import { errorLogger, requestLogger } from './middlewares/loggers';
+import mev from 'mongoose-express-validator';
+import Product from './models/models';
 
 
 dotenv.config();
@@ -24,6 +26,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.use(requestLogger);
+
+app.use(mev('product', Product));
 app.use('/product', router);
 app.use('/order', orderRouter);
 app.use(errorLogger);
